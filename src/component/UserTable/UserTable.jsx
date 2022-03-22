@@ -6,6 +6,9 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
+import { fetchRecord } from '../../redux/action/action';
 
 function createData(name, calories, fat, carbs, protein) {
     return { name, calories, fat, carbs, protein };
@@ -20,9 +23,45 @@ function createData(name, calories, fat, carbs, protein) {
   ];
 
 const UserTable = () => {
+ 
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.userDataReducer?.userData)
+
+  React.useEffect(() => {
+    dispatch(fetchRecord());
+    console.log("test");
+    console.log(user);
+  }, [dispatch,user]);
+ 
+  // React.useEffect(() => {
+  //   const fetchUserData = async () => {
+  //     try {
+  //       const res = await axios.get(
+  //         `https://jsonplaceholder.typicode.com/users`,
+  //       )
+  //       // setConversation(res?.data)
+    
+  //     // conversation.push(res.data)
+  //     console.log(res.data)
+  //     dispatch({type:'fetch-userData', payload : res.data })
+  //       // setCurrentChat(res?.data[0])
+       
+  //     } catch (err) {
+  //       console.log(err)
+  //     }
+  //   }
+  //   fetchUserData()
+  // },[])
+
+
+  const users = useSelector((state) => state.userDataReducer?.userData);
+  console.log(users)
+  
+
+
     return (
         <TableContainer component={Paper} sx={{width:"90%",margin:4}}>
-        <Table sx={{ minWidth: 450 }} size="small" aria-label="a dense table">
+        {/* <Table sx={{ minWidth: 450 }} size="small" aria-label="a dense table">
           <TableHead>
             <TableRow>
               <TableCell>Dessert (100g serving)</TableCell>
@@ -48,7 +87,7 @@ const UserTable = () => {
               </TableRow>
             ))}
           </TableBody>
-        </Table>
+        </Table> */}
       </TableContainer>
     );
 };
