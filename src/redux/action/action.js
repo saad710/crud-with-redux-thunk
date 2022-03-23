@@ -1,3 +1,4 @@
+import { type } from "@testing-library/user-event/dist/type";
 import axios from "axios";
 
 //   export const fetchUser = (userData) => {
@@ -54,3 +55,29 @@ export const setUserState = (userData) => {
       payload: userData
     };
   };
+
+  // export const deleteUser = (id) => {
+  //   // return {
+  //   //   type: "REMOVE_FE_USER",
+  //   //   payload: id
+  //   // };
+  //   return (dispatch) => {
+  //     axios.delete(`/users/${id}.json`).then(() => {
+  //       dispatch(fetchRecord());
+  //     });
+  //   };
+  // };
+  export const deleteUser = (id) => {
+    return (dispatch) => {
+      // axios.delete(`/users/${id}.json`).then(() => {
+        dispatch(removeFrontEnd(id));
+      // });
+    };
+  };
+  export const removeFrontEnd = (id) => {
+    console.log(id)
+    return {
+      type: "removeUser",
+      payload: id
+    };
+  }

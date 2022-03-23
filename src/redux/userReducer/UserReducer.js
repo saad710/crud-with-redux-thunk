@@ -3,13 +3,21 @@ const INIT_STATE = {
 }
 
 const userDataReducer = (state =INIT_STATE ,action) => {
-     console.log(state)
+    //  console.log(state)
      switch(action.type){
                 case 'fetchUserData':
                     const userRecord = action.payload;
+                    console.log(userRecord)
                     return {
                         ...state,
                         userData: userRecord ,
+                    };
+                case "removeUser":
+                    // const userId = action.payload;
+                    return {
+                        userData: state.userData.filter((user) => {
+                        return user.id !== action.payload;
+                        })
                     };
                 // case 'add-userData': 
                 //     return {

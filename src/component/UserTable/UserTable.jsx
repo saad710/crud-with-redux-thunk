@@ -8,7 +8,8 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
-import { fetchRecord } from '../../redux/action/action';
+import { deleteUser, fetchRecord } from '../../redux/action/action';
+import { Button } from '@mui/material';
 
 function createData(name, calories, fat, carbs, protein) {
     return { name, calories, fat, carbs, protein };
@@ -25,13 +26,13 @@ function createData(name, calories, fat, carbs, protein) {
 const UserTable = () => {
  
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.userDataReducer?.userData)
-
+  
   React.useEffect(() => {
     dispatch(fetchRecord());
-    console.log("test");
-    console.log(user);
-  }, [dispatch,user]);
+  }, [dispatch]);
+
+  const user = useSelector((state) => state.UserReducer?.userData)
+  console.log(user)
  
   // React.useEffect(() => {
   //   const fetchUserData = async () => {
@@ -54,40 +55,42 @@ const UserTable = () => {
   // },[])
 
 
-  const users = useSelector((state) => state.userDataReducer?.userData);
-  console.log(users)
   
 
 
     return (
         <TableContainer component={Paper} sx={{width:"90%",margin:4}}>
-        {/* <Table sx={{ minWidth: 450 }} size="small" aria-label="a dense table">
+        <Table sx={{ minWidth: 450 }} size="small" aria-label="a dense table">
           <TableHead>
             <TableRow>
-              <TableCell>Dessert (100g serving)</TableCell>
-              <TableCell align="right">Calories</TableCell>
-              <TableCell align="right">Fat&nbsp;(g)</TableCell>
-              <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-              <TableCell align="right">Protein&nbsp;(g)</TableCell>
+              <TableCell>Id</TableCell>
+              <TableCell align="right">Name</TableCell>
+              <TableCell align="right">User Name</TableCell>
+              <TableCell align="right">Email</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-              <TableRow
-                key={row.name}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  {row.name}
-                </TableCell>
-                <TableCell align="right">{row.calories}</TableCell>
-                <TableCell align="right">{row.fat}</TableCell>
-                <TableCell align="right">{row.carbs}</TableCell>
-                <TableCell align="right">{row.protein}</TableCell>
-              </TableRow>
-            ))}
+            {
+              user.length > 0 &&
+              (user?.map((row) => (
+                <TableRow
+                  key={row.id}
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                >
+                  <TableCell component="th" scope="row">
+                    {row.id}
+                  </TableCell>
+                  <TableCell align="right">{row.name}</TableCell>
+                  <TableCell align="right">{row.username}</TableCell>
+                  <TableCell align="right">{row.email}</TableCell>
+                  <TableCell align="right">
+                    <Button variant="outlined"  onClick={() => dispatch(deleteUser(row.id))}> Delete </Button>
+                  </TableCell>
+                </TableRow>
+              )))
+            }
           </TableBody>
-        </Table> */}
+        </Table>
       </TableContainer>
     );
 };
