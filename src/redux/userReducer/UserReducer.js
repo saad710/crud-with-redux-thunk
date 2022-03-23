@@ -19,10 +19,10 @@ const userDataReducer = (state =INIT_STATE ,action) => {
                         return user.id !== action.payload;
                         })
                     };
-                // case 'add-userData': 
-                //     return {
-                //         users: [action.payload, ...state.userData]
-                //     }
+                case 'addUser': 
+                    return {
+                        users: [action.payload, ...state.userData]
+                    }
                 // case 'edit-userData' : 
                 // const userDetail = action.payload;
                 // const updateDetail = state.userData.map((user) => {
