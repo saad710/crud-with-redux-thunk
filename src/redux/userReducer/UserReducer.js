@@ -24,25 +24,20 @@ const userDataReducer = (state =INIT_STATE ,action) => {
                     return {
                         userData: [action.payload, ...state.userData]
                     }
-                // case 'edit-userData' : 
-                // const userDetail = action.payload;
-                // const updateDetail = state.userData.map((user) => {
-                //     if (user.id === userDetail.id) {
-                //     return userDetail;
-                //     } else {
-                //     return user;
-                //     }
-                // });
-                //     return {
-                //         users: updateDetail
-                //     }
-                // case 'remove-userData' : 
-                // return {
-                //     users: state.userData.filter((user) => {
-                //       return user.id !== action.payload;
-                //     })
-                //   };
-
+                case "updateUser":
+                    const userDetail = action.payload;
+                    console.log(userDetail)
+                    const updateDetail = state.userData?.map((user) => {
+                        // console.log(action.payload.id)
+                        if (user.id === userDetail.id) {
+                        return userDetail;
+                        } else {
+                        return user;
+                        }
+                    });
+                    console.log(updateDetail)
+                    return { userData: updateDetail };
+        
                     default: 
                     return state;
             }

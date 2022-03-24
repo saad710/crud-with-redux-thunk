@@ -68,4 +68,24 @@ export const setUserState = (userData) => {
   }
 
 
+
+  export const editFrontEndUser = (user) => {
+    return (dispatch) => {
+      // axios.put(`/users/${user.collection_id}.json`, user).then(() => {
+        dispatch(setEditUser(user));
+      // });
+      // dispatch(editBEUser(user));
+      // dispatch(editFEEUser(user));
+    };
+  };
+  
+  export const setEditUser = (user) => {
+    console.log(user)
+    return {
+      type: "updateUser",
+      payload: user
+    };
+  };
+
+
   

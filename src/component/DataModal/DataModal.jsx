@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { addFrontEndUser } from "../../redux/action/action";
+import { addFrontEndUser, editFrontEndUser } from "../../redux/action/action";
 import { useDispatch, useSelector } from "react-redux";
 
 const style = {
@@ -22,12 +22,14 @@ const style = {
 
 const DataModal = (props) => {
   const { rowData, action, setAction, open, setOpen,user } = props;
+ 
   const dispatch = useDispatch();
   const { register, handleSubmit,reset } = useForm();
 
   //   const onSubmit = data => console.log(data);
   const handleClose = () => {
     setOpen(false);
+    // setAction("")
   };
 
   const onSubmit = (data) => {
@@ -48,8 +50,12 @@ const DataModal = (props) => {
   const updateHandler = (data) => {
       console.log("update")
       console.log(data)
+      const userData = Object.assign({...data,id:rowData.id})
+      dispatch(editFrontEndUser(userData))
+      setOpen(false)
       reset({name:"",username:"",email:""})
   }
+
  
   return (
     <div>
@@ -67,18 +73,22 @@ const DataModal = (props) => {
               placeholder="user name"
               sx={{ padding: 2 }}
               {...register("username")}
+            //   defaultValue={action === "Edit" ? rowData.username : ""}
+            //   value={action === "Edit" ? rowData.username : ""}
             />
             <TextField
               variant="standard"
               placeholder="name"
               sx={{ padding: 2 }}
               {...register("name")}
+            //   defaultValue={action === "Edit" ? rowData.name : ""}
             />
             <TextField
               variant="standard"
               placeholder="email"
               sx={{ padding: 2 }}
               {...register("email")}
+            //   defaultValue={action === "Edit" ? rowData.email : ""}
             />
             <br />
             <Button variant="outlined" type="submit">

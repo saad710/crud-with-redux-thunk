@@ -34,6 +34,7 @@ const UserTable = () => {
   };
 
   const handleEdit = (row) => {
+    console.log(row)
     setAction("Edit");
     setRowData(row);
     setOpen(true);
@@ -41,10 +42,11 @@ const UserTable = () => {
 
   return (
     <>
-      <Button variant="outlined" onClick={handleAdd} sx={{ marginLeft: 1 }}>
-        Add
+      <Button variant="outlined" onClick={handleAdd} sx={{ marginLeft:4,marginTop:2  }}>
+        Add User Data
       </Button>
-      <TableContainer component={Paper} sx={{ width: "90%", margin: 4 }}>
+      <br/>
+      <TableContainer component={Paper} sx={{ width: "90%", margin: 4}}>
         <Table sx={{ minWidth: 450 }} size="small" aria-label="a dense table">
           <TableHead>
             <TableRow>
