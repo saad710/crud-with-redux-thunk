@@ -20,8 +20,9 @@ const userDataReducer = (state =INIT_STATE ,action) => {
                         })
                     };
                 case 'addUser': 
+                    console.log(action.payload)
                     return {
-                        users: [action.payload, ...state.userData]
+                        userData: [action.payload, ...state.userData]
                     }
                 // case 'edit-userData' : 
                 // const userDetail = action.payload;

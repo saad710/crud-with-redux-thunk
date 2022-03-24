@@ -46,4 +46,26 @@ export const setUserState = (userData) => {
     };
   }
 
+
+  export const addFrontEndUser = (user) => {
+    console.log(user)
+    // return async (dispatch) => {
+    //   // const data = await axios.post("users.json", user);
+    //   dispatch(setAddUser(user));
+    // };
+    return async (dispatch) => {
+      // const data = await axios.post("users.json", user);
+      dispatch(setAddUser(user));
+    };
+  };
+  
+  export const setAddUser = (user) => {
+    console.log(user)
+    return {
+      type: "addUser",
+      payload: user
+    };
+  }
+
+
   
