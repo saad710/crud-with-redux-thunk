@@ -22,11 +22,23 @@ const style = {
 
 const DataModal = (props) => {
   const { rowData, action, setAction, open, setOpen,user } = props;
+  const [formValue,setFormValue] = useState({})
+  console.log(rowData)
  
   const dispatch = useDispatch();
   const { register, handleSubmit,reset } = useForm();
 
   //   const onSubmit = data => console.log(data);
+  useEffect(() => {
+    const putData = {
+      name : rowData.name,
+      username:rowData.username,
+      email:rowData.email
+    }
+    setFormValue(putData)
+  },[rowData])
+
+  
   const handleClose = () => {
     setOpen(false);
     // setAction("")
@@ -55,6 +67,10 @@ const DataModal = (props) => {
       setOpen(false)
       reset({name:"",username:"",email:""})
   }
+  const handleChange = (event,fieldName) => {
+    console.log(event.target.value,fieldName);
+    setFormValue(prev=>({...prev,[fieldName]:event.target.value}))
+  };
 
  
   return (
@@ -68,12 +84,15 @@ const DataModal = (props) => {
         <Box sx={style}>
           <h5>{action}</h5>
           <form onSubmit={handleSubmit(onSubmit)}>
+          {JSON.stringify(formValue.username)}
             <TextField
               variant="standard"
               placeholder="user name"
               sx={{ padding: 2 }}
               {...register("username")}
-            //   defaultValue={action === "Edit" ? rowData.username : ""}
+              value={action === "Edit" ? formValue.username : ""}
+            
+              onChange={(e)=>handleChange(e,"username")}
             //   value={action === "Edit" ? rowData.username : ""}
             />
             <TextField
@@ -81,14 +100,18 @@ const DataModal = (props) => {
               placeholder="name"
               sx={{ padding: 2 }}
               {...register("name")}
-            //   defaultValue={action === "Edit" ? rowData.name : ""}
+            
+              value={action === "Edit" ? formValue.name : ""}
+              onChange={(e)=>handleChange(e,"name")}
             />
             <TextField
               variant="standard"
               placeholder="email"
               sx={{ padding: 2 }}
               {...register("email")}
-            //   defaultValue={action === "Edit" ? rowData.email : ""}
+            
+              value={action === "Edit" ? formValue.email : ""}
+              onChange={(e)=>handleChange(e,"email")}
             />
             <br />
             <Button variant="outlined" type="submit">
