@@ -26,8 +26,10 @@ const DataModal = (props) => {
   console.log(rowData)
  
   const dispatch = useDispatch();
-  const { register, handleSubmit,reset } = useForm();
+  const { register, handleSubmit,reset,watch,setValue } = useForm();
 
+
+  console.log(watch())
   //   const onSubmit = data => console.log(data);
   useEffect(() => {
     const putData = {
@@ -36,6 +38,10 @@ const DataModal = (props) => {
       email:rowData.email
     }
     setFormValue(putData)
+
+    setValue("name", rowData.name)
+    setValue("username", rowData.username)
+    setValue("email", rowData.email)
   },[rowData])
 
   
@@ -67,10 +73,12 @@ const DataModal = (props) => {
       setOpen(false)
       reset({name:"",username:"",email:""})
   }
-  const handleChange = (event,fieldName) => {
-    console.log(event.target.value,fieldName);
-    setFormValue(prev=>({...prev,[fieldName]:event.target.value}))
-  };
+  // const handleChange = (event,fieldName) => {
+  //   console.log(event.target.value,fieldName);
+  //   setFormValue(prev=>({...prev,[fieldName]:event.target.value}))
+  //   setValue([fieldName], event.target.value)
+   
+  // };
 
  
   return (
@@ -89,10 +97,11 @@ const DataModal = (props) => {
               variant="standard"
               placeholder="user name"
               sx={{ padding: 2 }}
-              {...register("username")}
-              value={action === "Edit" ? formValue.username : ""}
             
-              onChange={(e)=>handleChange(e,"username")}
+              {...register("username")}
+              // value={action === "Edit" ? watch("username") : ""}
+            
+              // onChange={(e)=>handleChange(e,"username")}
             //   value={action === "Edit" ? rowData.username : ""}
             />
             <TextField
@@ -101,8 +110,8 @@ const DataModal = (props) => {
               sx={{ padding: 2 }}
               {...register("name")}
             
-              value={action === "Edit" ? formValue.name : ""}
-              onChange={(e)=>handleChange(e,"name")}
+              // value={action === "Edit" ?watch("name") : ""}
+              // onChange={(e)=>handleChange(e,"name")}
             />
             <TextField
               variant="standard"
@@ -110,8 +119,8 @@ const DataModal = (props) => {
               sx={{ padding: 2 }}
               {...register("email")}
             
-              value={action === "Edit" ? formValue.email : ""}
-              onChange={(e)=>handleChange(e,"email")}
+              // value={action === "Edit" ? watch("email") : ""}
+              // onChange={(e)=>handleChange(e,"email")}
             />
             <br />
             <Button variant="outlined" type="submit">
